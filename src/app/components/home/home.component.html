@@ -1,0 +1,96 @@
+<div class="surface-ground px-4 py-5 md:px-6 lg:px-8 min-h-full	">
+    <span class="block text-600 font-medium text-xl mb-3">CETES vs Inflación</span>
+
+    <div class="grid mb-3 fadeinup animation-duration-400 animation-ease-in">
+        <div class="col-12 md:col-6 lg:col-3">
+            <div class="surface-card shadow-2 p-3 border-round-xl">
+                <div class="flex justify-content-between">
+                    <div>
+                        <span class="block text-500 font-medium mb-3">Rendimiento real actual de CETES a 28 días</span>
+                        <div class="text-900 font-medium text-4xl">{{ realProfitRate }}</div>
+                        <p-skeleton width="10rem" height="2.5rem" borderRadius="16px" *ngIf="spinnerService.loading$ | async"></p-skeleton>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <div class="surface-card shadow-2 p-3 border-round-xl">
+                <div class="flex justify-content-between">
+                    <div>
+                        <span class="block text-500 font-medium mb-3">Tasa nominal actual de CETES a 28 días</span>
+                        <div class="text-900 font-medium text-4xl">
+                            {{ lastCetes28DaysRate }}
+                            <ng-container [ngSwitch]="isLatestCetes28RateHigher">
+                                <span class="pi pi-arrow-down text-red-300 font-bold" *ngSwitchCase="0"></span>
+                                <span class="pi pi-arrow-up text-green-300 font-bold" *ngSwitchCase="1"></span>
+                                <span class="pi pi-minus text-gray-300 font-bold" *ngSwitchCase="2"></span>
+                            </ng-container>
+                        </div>
+                        <p-skeleton width="10rem" height="2.5rem" borderRadius="16px" *ngIf="spinnerService.loading$ | async"></p-skeleton>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <div class="surface-card shadow-2 p-3 border-round-xl">
+                <div class="flex justify-content-between">
+                    <div>
+                        <span class="block text-500 font-medium mb-3">Inflación actual ({{ lastInflationRateMonth }})</span>
+                        <div class="text-900 font-medium text-4xl">
+                            {{ lastInflationRate }}
+                            <ng-container [ngSwitch]="isLatestInflationRateHigher">
+                                <span class="pi pi-arrow-down text-red-300 font-bold" *ngSwitchCase="0"></span>
+                                <span class="pi pi-arrow-up text-green-300 font-bold" *ngSwitchCase="1"></span>
+                                <span class="pi pi-minus text-gray-300 font-bold" *ngSwitchCase="2"></span>
+                            </ng-container>
+                        </div>
+                        <p-skeleton width="10rem" height="2.5rem" borderRadius="16px" *ngIf="spinnerService.loading$ | async"></p-skeleton>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <div class="surface-card shadow-2 p-3 border-round-xl">
+                <div class="flex justify-content-between">
+                    <div>
+                        <span class="block text-500 font-medium mb-3">Tasa objetivo actual de Banxico ({{ lastTargetRateMonth }})</span>
+                        <div class="text-900 font-medium text-4xl">
+                            {{ lastTargetRate }}
+                            <ng-container [ngSwitch]="isLatestTargetRateHigher">
+                                <span class="pi pi-arrow-down text-red-300 font-bold" *ngSwitchCase="0"></span>
+                                <span class="pi pi-arrow-up text-green-300 font-bold" *ngSwitchCase="1"></span>
+                                <span class="pi pi-minus text-gray-300 font-bold" *ngSwitchCase="2"></span>
+                            </ng-container>
+                        </div>
+                        <p-skeleton width="10rem" height="2.5rem" borderRadius="16px" *ngIf="spinnerService.loading$ | async"></p-skeleton>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <span class="block text-600 font-medium text-xl mb-3">Histórico de datos (últimos 10 años)</span>
+
+    <div class="grid mb-3">
+        <div class="col-12">
+            <div class="card surface-card shadow-2 p-3 border-round-xl fadein animation-duration-400 animation-ease-in" *ngIf="realProfitRate">
+                <p-chart type="line" [data]="chartProfitRateData" [options]="chartProfitRateOptions"></p-chart>
+            </div>
+        </div>
+
+        <div class="col-12 md:col-6">
+            <div class="card surface-card shadow-2 p-3 border-round-xl fadein animation-duration-400 animation-ease-in" *ngIf="lastCetes28DaysRate">
+                <p-chart type="line" [data]="chartCetesData" [options]="chartCetesOptions"></p-chart>
+            </div>
+        </div>
+
+        <div class="col-12 md:col-6">
+            <div class="card surface-card shadow-2 p-3 border-round-xl fadein animation-duration-400 animation-ease-in" *ngIf="lastInflationRate">
+                <p-chart type="line" [data]="chartInflationData" [options]="chartInflationOptions"></p-chart>
+            </div>
+        </div>
+    </div>
+
+    <span class="block text-600 font-medium text-sm text-center mb-1">Fuente: Banxico | Dev: Joan Garcia</span>
+
+</div>
