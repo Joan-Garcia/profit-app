@@ -71,6 +71,8 @@
 
     <span class="block text-600 font-medium text-xl mb-3">Histórico de datos (últimos 10 años)</span>
 
+    <p-skeleton width="100%" height="30rem" borderRadius="16px" *ngIf="spinnerService.loading$ | async"></p-skeleton>
+
     <div class="grid mb-3">
         <div class="col-12">
             <div class="card surface-card shadow-2 p-3 border-round-xl fadein animation-duration-400 animation-ease-in" *ngIf="realProfitRate">
