@@ -116,7 +116,7 @@ export class HomeComponent implements OnInit {
             this.lastTargetRate = this.targetRateData[this.targetRateData.length - 1].dato + '%';
             this.lastTargetRateMonth = this.targetRateData[this.targetRateData.length - 1].fecha;
 
-            this.realProfitRate = (parseFloat(this.lastCetes28DaysRate) - parseFloat(this.lastInflationRate)) + '%';
+            this.realProfitRate = (parseFloat(this.lastCetes28DaysRate) - parseFloat(this.lastInflationRate)).toFixed(2) + '%';
 
             this.initChartsDatasets();
         });
